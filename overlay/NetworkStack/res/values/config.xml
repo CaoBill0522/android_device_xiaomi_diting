@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- With more than one URL NetworkMonitor probes all of them in parallel and the
+         network validates as soon as any HTTPS probe succeeds. Google endpoints alone
+         are unreachable in mainland China and leave a ! on the Wi-Fi/mobile icon. -->
+    <string-array name="config_captive_portal_https_urls" translatable="false">
+        <item>https://www.google.com/generate_204</item>
+        <item>https://connect.rom.miui.com/generate_204</item>
+        <item>https://connectivitycheck.platform.hicloud.com/generate_204</item>
+    </string-array>
+    <!-- HTTP probes detect sign-in portals; the first one also probes the capport API -->
+    <string-array name="config_captive_portal_http_urls" translatable="false">
+        <item>http://connectivitycheck.gstatic.com/generate_204</item>
+        <item>http://connect.rom.miui.com/generate_204</item>
+        <item>http://wifi.vivo.com.cn/generate_204</item>
+    </string-array>
+</resources>

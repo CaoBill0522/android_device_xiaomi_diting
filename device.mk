@@ -34,6 +34,7 @@ PRODUCT_COPY_FILES += \
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworksResDiting \
+    NetworkStackResDiting \
     NfcResDiting \
     SettingsProviderResDiting \
     SettingsProviderResDitingCN \
