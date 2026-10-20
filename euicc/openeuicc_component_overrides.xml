@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<config>
+    <!-- Hide the OpenEUICC launcher entry. eSIMs are managed from Settings,
+         which reaches OpenEUICC through LuiActivity and OpenEuiccService. -->
+    <component-override package="im.angry.openeuicc">
+        <component class=".ui.PrivilegedMainActivity" enabled="false" />
+    </component-override>
+</config>

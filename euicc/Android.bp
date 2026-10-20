@@ -11,7 +11,17 @@ android_app {
     platform_apis: true,
     privileged: true,
     system_ext_specific: true,
-    required: ["privapp_whitelist_org.diting.euicc.xml"],
+    required: [
+        "openeuicc_component_overrides.xml",
+        "privapp_whitelist_org.diting.euicc.xml",
+    ],
+}
+
+prebuilt_etc {
+    name: "openeuicc_component_overrides.xml",
+    src: "openeuicc_component_overrides.xml",
+    sub_dir: "sysconfig",
+    system_ext_specific: true,
 }
 
 prebuilt_etc {
