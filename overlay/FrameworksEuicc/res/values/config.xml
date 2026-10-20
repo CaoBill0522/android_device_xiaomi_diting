@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Radio access technologies supported by the eUICC, as "type,release" -->
+    <string-array translatable="false" name="config_telephonyEuiccDeviceCapabilities">
+        <item>"gsm,8"</item>
+        <item>"utran,9"</item>
+        <item>"eutran,15"</item>
+    </string-array>
+
+    <!-- Physical slot 1 is the embedded eUICC -->
+    <integer-array name="non_removable_euicc_slots">
+        <item>1</item>
+    </integer-array>
+</resources>

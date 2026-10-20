@@ -17,6 +17,16 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/resourcemanager_waipio_mtp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_cape/resourcemanager_waipio_mtp.xml \
     $(LOCAL_PATH)/audio/usecaseKvManager.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usecaseKvManager.xml
 
+# eSIM
+PRODUCT_PACKAGES += \
+    DitingEuicc \
+    FrameworksResDitingEuicc \
+    OpenEUICC
+
+# Only the ditingp SKU (22081212UG) has an eUICC.
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_ditingp/android.hardware.telephony.euicc.xml
+
 # Overlay
 PRODUCT_PACKAGES += \
     ApertureResDiting \

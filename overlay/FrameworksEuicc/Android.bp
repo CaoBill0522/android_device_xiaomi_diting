@@ -1,0 +1,10 @@
+//
+// Copyright (C) 2026 CaoBill0522
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+runtime_resource_overlay {
+    name: "FrameworksResDitingEuicc",
+    device_specific: true,
+}

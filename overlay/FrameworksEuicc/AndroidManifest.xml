@@ -1,0 +1,14 @@
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="android.overlay.diting.euicc">
+    <!-- Only the ditingp board (22081212UG) has an eUICC in physical slot 1.
+         On diting boards (K50 Ultra, 22081212G) slot 1 is a regular SIM slot. -->
+    <overlay android:targetPackage="android"
+                   android:isStatic="true"
+                   android:priority="710"
+                   android:requiredSystemPropertyName="ro.boot.product.hardware.sku"
+                   android:requiredSystemPropertyValue="ditingp"/>
+</manifest>
