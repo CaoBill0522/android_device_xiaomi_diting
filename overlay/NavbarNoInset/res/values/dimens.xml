@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- No bottom inset, so apps draw to the bottom edge -->
+    <dimen name="navigation_bar_height">0dp</dimen>
+    <dimen name="navigation_bar_height_landscape">0dp</dimen>
+    <!-- Both default to navigation_bar_height; pin them to the gestural overlay values
+         so the home and back gesture areas keep their size -->
+    <dimen name="navigation_bar_frame_height">48dp</dimen>
+    <dimen name="navigation_bar_gesture_height">32dp</dimen>
+</resources>

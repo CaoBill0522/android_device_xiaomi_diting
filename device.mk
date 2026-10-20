@@ -34,6 +34,8 @@ PRODUCT_COPY_FILES += \
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworksResDiting \
+    NavbarNoHintOverlay \
+    NavbarNoInsetOverlay \
     NetworkStackResDiting \
     NfcResDiting \
     SettingsProviderResDiting \
