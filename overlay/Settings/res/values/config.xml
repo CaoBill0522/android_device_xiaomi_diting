@@ -6,4 +6,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The radius of the enrollment progress bar, in dp -->
     <integer name="config_udfpsEnrollProgressBar" translatable="false">119</integer>
+
+    <!-- The sensor sits too low for the footer skip button, use the side skip text instead -->
+    <bool name="config_useLegacyUdfpsUi" translatable="false">true</bool>
 </resources>
