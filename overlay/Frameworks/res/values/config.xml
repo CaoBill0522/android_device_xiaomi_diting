@@ -307,4 +307,38 @@
          @see https://www.w3.org/TR/SVG/paths.html#PathData
          -->
     <string name="config_mainBuiltInDisplayCutout" translatable="false">M 0,0 H -33 V 88 H 33 V 0 H 0 Z</string>
+
+    <!-- Ambient light hysteresis. The common Xiaomi values need a ~50% lux change
+         before auto brightness reacts, which feels unresponsive. Thresholds are in
+         tenths of a percent and have one more entry than config_ambientThresholdLevels. -->
+    <integer-array name="config_ambientThresholdLevels">
+        <item>2</item>
+        <item>10</item>
+        <item>30</item>
+        <item>100</item>
+        <item>800</item>
+        <item>2000</item>
+        <item>4000</item>
+    </integer-array>
+    <!-- Below 2 lux the sensor resolution is 0.54 lux, keep it wide to avoid flicker -->
+    <integer-array name="config_ambientBrighteningThresholds">
+        <item>1000</item>
+        <item>300</item>
+        <item>200</item>
+        <item>150</item>
+        <item>100</item>
+        <item>100</item>
+        <item>100</item>
+        <item>100</item>
+    </integer-array>
+    <integer-array name="config_ambientDarkeningThresholds">
+        <item>800</item>
+        <item>500</item>
+        <item>300</item>
+        <item>250</item>
+        <item>200</item>
+        <item>200</item>
+        <item>200</item>
+        <item>200</item>
+    </integer-array>
 </resources>
