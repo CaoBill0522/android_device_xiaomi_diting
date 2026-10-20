@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Private update server. {device} is ro.custom.device. Redirects are not followed. -->
+    <string name="updater_server_url" translatable="false">https://update.jcao.dev/{device}</string>
+    <string name="changelog_url" translatable="false">https://update.jcao.dev/{device}/changelog.md</string>
+</resources>

@@ -31,6 +31,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_ditingp/android.hardware.telephony.euicc.xml
 
+# Updater (unofficial builds only get it from here)
+PRODUCT_PACKAGES += \
+    JcaoParts \
+    Updater \
+    UpdaterResDiting
+
+PRODUCT_COPY_FILES += \
+    vendor/custom/config/permissions/privapp-permissions-custom.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-custom.xml
+
+# The updater refuses to query a server without a build type
+PRODUCT_PRODUCT_PROPERTIES += \
+    net.pixelos.build_type=jcao
+
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworksResDiting \
