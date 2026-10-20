@@ -341,4 +341,10 @@
         <item>200</item>
         <item>200</item>
     </integer-array>
+
+    <!-- SNTP servers, reachable both inside and outside mainland China -->
+    <string-array translatable="false" name="config_ntpServers">
+        <item>ntp://time.apple.com</item>
+        <item>ntp://time.android.com</item>
+    </string-array>
 </resources>
