@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <string name="quick_settings_aod_label">熄屏显示</string>
+    <string name="quick_settings_aod_off_powersave_label">熄屏显示已关闭\n省电模式</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <string name="doze_always_on_title2">熄屏显示</string>
+    <string name="doze_always_on_wallpaper_description">使用“熄屏显示”时，显示锁屏壁纸</string>
+    <string name="mode_aod_summary">停用熄屏显示</string>
+    <string name="keywords_always_show_time_info">熄屏显示, 息屏显示, 氛围屏保始终保持开启状态, AOD, always on ambient display</string>
+    <string name="ambient_display_screen_off_udfps_title">熄屏指纹解锁</string>
+</resources>
