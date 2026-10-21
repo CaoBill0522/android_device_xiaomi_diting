@@ -7,6 +7,6 @@
     android:versionCode="1506"
     android:versionName="15.06">
     <overlay android:targetPackage="android"
-                   android:isStatic="false"
+                   android:isStatic="true"
                    android:priority="1"/>
 </manifest>
