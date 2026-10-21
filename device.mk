@@ -45,6 +45,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Overlay
 PRODUCT_PACKAGES += \
+    DolbyUiResDiting \
     FrameworksResDiting \
     NavbarNoHintOverlay \
     NavbarNoInsetOverlay \
