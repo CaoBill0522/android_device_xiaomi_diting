@@ -4,5 +4,8 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <dimen name="navigation_home_handle_width">0dp</dimen>
+    <!-- Width of the phone gesture handle drawn by the stashed taskbar -->
+    <dimen name="taskbar_stashed_small_screen">0dp</dimen>
+    <!-- Stashed taskbar height, reported to apps as the navigationBars inset -->
+    <dimen name="taskbar_stashed_size">0dp</dimen>
 </resources>
