@@ -35,6 +35,10 @@ PRODUCT_PACKAGES += \
 # eSIM is opt-in: SystemConfig declares android.hardware.telephony.euicc only while
 # persist.sys.jcao.esim is set (Settings on ditingp, JcaoParts elsewhere).
 
+# JcaoParts sysfs permissions
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init/init.jcao_parts.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.jcao_parts.rc
+
 # Updater (unofficial builds only get it from here)
 PRODUCT_PACKAGES += \
     JcaoParts \

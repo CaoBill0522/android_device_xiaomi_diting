@@ -1,0 +1,1 @@
+genfscon sysfs /devices/platform/soc/1d84000.ufshc/health_descriptor u:object_r:sysfs_ufs_health:s0

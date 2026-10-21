@@ -1,0 +1,2 @@
+# UFS health descriptor, shown as storage lifespan in JcaoParts
+type sysfs_ufs_health, sysfs_type, fs_type;

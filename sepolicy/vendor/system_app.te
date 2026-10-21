@@ -1,0 +1,15 @@
+# JcaoParts (org.jcao.parts, android.uid.system)
+
+# Charge protection (night_charging) and bypass power (constant_charge_current)
+allow system_app vendor_sysfs_battery_supply:dir r_dir_perms;
+allow system_app vendor_sysfs_battery_supply:file rw_file_perms;
+allow system_app vendor_sysfs_battery_supply:lnk_file r_file_perms;
+
+# Per-app thermal profiles
+allow system_app sysfs_thermal:dir r_dir_perms;
+allow system_app sysfs_thermal:file rw_file_perms;
+allow system_app sysfs_thermal:lnk_file r_file_perms;
+
+# Storage lifespan
+allow system_app sysfs_ufs_health:dir r_dir_perms;
+allow system_app sysfs_ufs_health:file r_file_perms;

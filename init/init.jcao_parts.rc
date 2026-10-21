@@ -1,0 +1,6 @@
+# Nodes written by JcaoParts (android.uid.system)
+on boot
+    chown system system /sys/class/qcom-battery/night_charging
+    chmod 0664 /sys/class/qcom-battery/night_charging
+    chown system system /sys/class/power_supply/battery/constant_charge_current
+    chmod 0664 /sys/class/power_supply/battery/constant_charge_current
