@@ -4,15 +4,21 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.diting.euicc">
+    package="org.diting.esim"
+    android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:label="DitingEuicc"
+        android:label="@string/app_name"
         android:directBootAware="true"
         android:allowBackup="false">
+
+        <!-- Keeps OpenEUICC and the shared SIM slot in line with the switch -->
         <receiver
             android:name=".BootCompletedReceiver"
             android:directBootAware="true"
@@ -22,5 +28,13 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <!-- Confirms an eSIM switch and reboots. Started from Settings and JcaoParts. -->
+        <activity
+            android:name=".EsimSwitchActivity"
+            android:exported="true"
+            android:permission="android.permission.MODIFY_PHONE_STATE"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.Alert" />
     </application>
 </manifest>

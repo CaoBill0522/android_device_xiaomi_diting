@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <string name="app_name" translatable="false">DitingEsim</string>
+    <string name="switch_on_title">Turn on eSIM?</string>
+    <string name="switch_off_title">Turn off eSIM?</string>
+    <string name="switch_on_message_shared_slot">SIM 2 will stop working while eSIM is on. Your phone will restart to apply the change.</string>
+    <string name="switch_off_message_shared_slot">SIM 2 will work again and eSIM profiles will be unavailable. Your phone will restart to apply the change.</string>
+    <string name="switch_message">Your phone will restart to apply the change.</string>
+    <string name="restart">Restart</string>
+    <string name="switch_failed">Couldn\'t switch the SIM slot</string>
+</resources>

@@ -5,15 +5,17 @@
 //
 
 android_app {
-    name: "DitingEuicc",
+    name: "DitingEsim",
     srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    static_libs: ["extphonelib"],
     certificate: "platform",
     platform_apis: true,
     privileged: true,
     system_ext_specific: true,
     required: [
         "openeuicc_component_overrides.xml",
-        "privapp_whitelist_org.diting.euicc.xml",
+        "privapp_whitelist_org.diting.esim.xml",
     ],
 }
 
@@ -25,8 +27,8 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "privapp_whitelist_org.diting.euicc.xml",
-    src: "privapp_whitelist_org.diting.euicc.xml",
+    name: "privapp_whitelist_org.diting.esim.xml",
+    src: "privapp_whitelist_org.diting.esim.xml",
     sub_dir: "permissions",
     system_ext_specific: true,
 }

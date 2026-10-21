@@ -4,11 +4,12 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="android.overlay.diting.euicc">
-    <!-- Only the ditingp board (22081212UG) has an eUICC in physical slot 1.
-         On diting boards (K50 Ultra, 22081212G) slot 1 is a regular SIM slot. -->
+    <!-- Only the ditingp board (22081212UG) has an eUICC, behind physical slot 1, and only
+         while eSIM is switched on; otherwise slot 1 is the SIM2 tray. On diting boards
+         (K50 Ultra, 22081212G) slot 1 is always a regular SIM slot. -->
     <overlay android:targetPackage="android"
                    android:isStatic="true"
                    android:priority="710"
-                   android:requiredSystemPropertyName="ro.boot.product.hardware.sku"
-                   android:requiredSystemPropertyValue="ditingp"/>
+                   android:requiredSystemPropertyName="ro.boot.product.hardware.sku,persist.sys.jcao.esim"
+                   android:requiredSystemPropertyValue="ditingp,1"/>
 </manifest>

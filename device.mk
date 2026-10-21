@@ -23,13 +23,12 @@ PRODUCT_COPY_FILES += \
 
 # eSIM
 PRODUCT_PACKAGES += \
-    DitingEuicc \
+    DitingEsim \
     FrameworksResDitingEuicc \
     OpenEUICC
 
-# Only the ditingp SKU (22081212UG) has an eUICC.
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_ditingp/android.hardware.telephony.euicc.xml
+# eSIM is opt-in: SystemConfig declares android.hardware.telephony.euicc only while
+# persist.sys.jcao.esim is set (Settings on ditingp, JcaoParts elsewhere).
 
 # Updater (unofficial builds only get it from here)
 PRODUCT_PACKAGES += \
