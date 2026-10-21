@@ -11,6 +11,9 @@ android_app {
     certificate: "platform",
     platform_apis: true,
     privileged: true,
+    // com.qualcomm.qcrilhook is a prebuilt dex_import without a soong library module, so the
+    // <uses-library> in the manifest cannot be matched against the build
+    enforce_uses_libs: false,
     system_ext_specific: true,
     required: [
         "openeuicc_component_overrides.xml",
