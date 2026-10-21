@@ -8,7 +8,6 @@ android_app {
     name: "DitingEsim",
     srcs: ["src/**/*.java"],
     resource_dirs: ["res"],
-    static_libs: ["extphonelib"],
     certificate: "platform",
     platform_apis: true,
     privileged: true,

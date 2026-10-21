@@ -18,6 +18,8 @@
         android:directBootAware="true"
         android:allowBackup="false">
 
+        <uses-library android:name="com.qualcomm.qcrilhook" android:required="false" />
+
         <!-- Keeps OpenEUICC and the shared SIM slot in line with the switch -->
         <receiver
             android:name=".BootCompletedReceiver"

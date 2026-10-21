@@ -8,30 +8,16 @@ package org.diting.esim;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.HandlerThread;
-import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.util.Log;
-
-import com.qti.extphone.Client;
-import com.qti.extphone.ExtPhoneCallbackListener;
-import com.qti.extphone.ExtTelephonyManager;
-import com.qti.extphone.QtiSimType;
-import com.qti.extphone.ServiceCallback;
-import com.qti.extphone.Status;
-import com.qti.extphone.Token;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * eSIM switch shared by Settings (international board) and JcaoParts (forced on other boards).
  *
  * persist.sys.jcao.esim decides at boot whether the eUICC feature is declared (SystemConfig)
  * and whether the slot overlay applies. On the ditingp board the second slot is also wired
- * through a GPIO to either the eUICC or the SIM2 tray, switched with QTI's setSimType like
- * stock MIUI does.
+ * through a GPIO to either the eUICC or the SIM2 tray, switched through Xiaomi's OEM hook
+ * messages like stock MIUI does (see MiEsimHook).
  */
 final class EsimController {
     private static final String TAG = "DitingEsim";
@@ -42,7 +28,6 @@ final class EsimController {
 
     private static final String LPA_PACKAGE = "im.angry.openeuicc";
 
-    private static final int SHARED_SLOT = 1;
     private static final long TIMEOUT_SECONDS = 5;
 
     private EsimController() {}
@@ -84,74 +69,24 @@ final class EsimController {
     static boolean routeSharedSlot(Context context, boolean esim) {
         if (!hasEuiccSlot()) return true;
 
-        ExtTelephonyManager etm = ExtTelephonyManager.getInstance(context);
-        CountDownLatch connected = new CountDownLatch(1);
-        ServiceCallback serviceCallback = new ServiceCallback() {
-            @Override
-            public void onConnected() {
-                connected.countDown();
-            }
+        try (MiEsimHook hook = MiEsimHook.connect(context, TIMEOUT_SECONDS)) {
+            if (hook == null) return false;
 
-            @Override
-            public void onDisconnected() {}
-        };
+            int want = esim ? MiEsimHook.GPIO_ESIM : MiEsimHook.GPIO_SIM2;
+            int current = hook.getGpio();
+            if (current == want) return true;
 
-        HandlerThread thread = new HandlerThread(TAG);
-        thread.start();
-        ExtPhoneCallbackListener listener = null;
-        try {
-            if (!etm.isServiceConnected()) {
-                etm.connectService(serviceCallback);
-                if (!connected.await(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
-                    Log.e(TAG, "ExtTelephonyService did not connect");
-                    return false;
-                }
+            // Same sequence as stock: power the slot down, flip the GPIO, power it back up
+            if (!hook.setUimPower(false, -1)) {
+                Log.w(TAG, "Failed to power down the shared slot");
             }
-
-            int want = esim ? QtiSimType.SIM_TYPE_ESIM : QtiSimType.SIM_TYPE_PHYSICAL;
-            QtiSimType[] current = etm.getCurrentSimType();
-            if (current != null && current.length > SHARED_SLOT
-                    && current[SHARED_SLOT].get() == want) {
-                return true;
+            boolean switched = hook.setGpio(want);
+            if (!hook.setUimPower(true, esim ? 1 : 0)) {
+                Log.w(TAG, "Failed to power up the shared slot");
             }
-
-            CountDownLatch responded = new CountDownLatch(1);
-            AtomicBoolean success = new AtomicBoolean();
-            listener = new ExtPhoneCallbackListener(thread.getLooper()) {
-                @Override
-                public void setSimTypeResponse(Token token, Status status) {
-                    success.set(status != null && status.get() == Status.SUCCESS);
-                    responded.countDown();
-                }
-            };
-            Client client = etm.registerCallbackWithEvents(context.getPackageName(), listener,
-                    new int[] {ExtPhoneCallbackListener.EVENT_SET_SIM_TYPE_RESPONSE});
-            if (client == null) {
-                Log.e(TAG, "Failed to register with ExtTelephonyService");
-                return false;
-            }
-
-            int first = current != null && current.length > 0
-                    ? current[0].get() : QtiSimType.SIM_TYPE_PHYSICAL;
-            QtiSimType[] types = {new QtiSimType(first), new QtiSimType(want)};
-            if (etm.setSimType(client, types) == null) {
-                Log.e(TAG, "setSimType was not sent");
-                return false;
-            }
-            if (!responded.await(TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
-                Log.e(TAG, "setSimType timed out");
-                return false;
-            }
-            Log.i(TAG, "Routed slot " + SHARED_SLOT + " to " + (esim ? "eSIM" : "SIM2")
-                    + ": " + success.get());
-            return success.get();
-        } catch (RemoteException | InterruptedException e) {
-            Log.e(TAG, "Failed to route the shared slot", e);
-            return false;
-        } finally {
-            if (listener != null) etm.unregisterCallback(listener);
-            etm.disconnectService(serviceCallback);
-            thread.quitSafely();
+            Log.i(TAG, "Routed the shared slot from " + current + " to "
+                    + (esim ? "eSIM" : "SIM2") + ": " + switched);
+            return switched;
         }
     }
 }
