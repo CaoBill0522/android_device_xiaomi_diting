@@ -53,6 +53,8 @@ final class MiEsimHook implements AutoCloseable {
 
     /** Returns null if the OEM hook service does not come up in time. */
     static MiEsimHook connect(Context context, long timeoutSeconds) {
+        // QcRilHook binds a service, which a receiver context may not do
+        context = context.getApplicationContext();
         try {
             ClassLoader cl = context.getClassLoader();
             Class<?> hookClass = cl.loadClass("com.qualcomm.qcrilhook.QcRilHook");
