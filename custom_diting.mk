@@ -26,4 +26,4 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 # Release signing keys, present only on the build server (see README of
 # CaoBill0522/PixelOS_diting); test-keys are used when they are absent.
--include vendor/jcao-priv/keys/keys.mk
+-include vendor/lineage-priv/keys/keys.mk
