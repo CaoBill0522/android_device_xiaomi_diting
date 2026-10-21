@@ -6,6 +6,7 @@
 <permissions>
     <privapp-permissions package="org.diting.esim">
         <permission name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
+        <permission name="android.permission.CHANGE_OVERLAY_PACKAGES" />
         <permission name="android.permission.MODIFY_PHONE_STATE" />
         <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
         <permission name="android.permission.REBOOT" />

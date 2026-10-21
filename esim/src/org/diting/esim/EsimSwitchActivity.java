@@ -56,6 +56,7 @@ public class EsimSwitchActivity extends Activity {
                 return;
             }
             EsimController.setEnabled(enable);
+            EsimController.syncSlotOverlay(enable);
             getSystemService(PowerManager.class).reboot(null);
         }).start();
     }

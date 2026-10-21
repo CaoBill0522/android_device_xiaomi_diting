@@ -14,6 +14,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         EsimController.syncLpa(context);
+        EsimController.syncSlotOverlay(EsimController.isEnabled());
 
         if (!Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())
                 || !EsimController.hasEuiccSlot()) {

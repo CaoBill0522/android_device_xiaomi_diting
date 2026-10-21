@@ -7,8 +7,12 @@
 package org.diting.esim;
 
 import android.content.Context;
+import android.content.om.IOverlayManager;
 import android.content.pm.PackageManager;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.util.Log;
 
 /**
@@ -27,6 +31,7 @@ final class EsimController {
     private static final String SKU_WITH_EUICC = "ditingp";
 
     private static final String LPA_PACKAGE = "im.angry.openeuicc";
+    private static final String SLOT_OVERLAY = "android.overlay.diting.euicc";
 
     private static final long TIMEOUT_SECONDS = 5;
 
@@ -42,6 +47,20 @@ final class EsimController {
 
     static void setEnabled(boolean enabled) {
         SystemProperties.set(PROP_ESIM, enabled ? "1" : "0");
+    }
+
+    /** Marks slot 1 as the embedded eUICC only while eSIM is switched on. */
+    static void syncSlotOverlay(boolean enabled) {
+        if (!hasEuiccSlot()) return;
+        IOverlayManager om = IOverlayManager.Stub.asInterface(
+                ServiceManager.getService(Context.OVERLAY_SERVICE));
+        try {
+            if (om.getOverlayInfo(SLOT_OVERLAY, UserHandle.USER_SYSTEM) != null) {
+                om.setEnabled(SLOT_OVERLAY, enabled, UserHandle.USER_SYSTEM);
+            }
+        } catch (RemoteException | IllegalStateException e) {
+            Log.e(TAG, "Failed to switch " + SLOT_OVERLAY, e);
+        }
     }
 
     /** Shows OpenEUICC only while the system declares the eUICC feature. */
