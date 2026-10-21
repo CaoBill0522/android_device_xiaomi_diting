@@ -29,7 +29,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DitingEsim \
     FrameworksResDitingEuicc \
-    OpenEUICC
+    OpenEUICC \
+    OpenEuiccResDiting
 
 # eSIM is opt-in: SystemConfig declares android.hardware.telephony.euicc only while
 # persist.sys.jcao.esim is set (Settings on ditingp, JcaoParts elsewhere).

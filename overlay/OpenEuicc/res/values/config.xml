@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- The built-in eUICC answers 6A80 to a LoadBoundProfilePackage
+         STORE DATA chain cut into 63-byte blocks; send whole segments. -->
+    <integer name="config_es10x_mss_default">255</integer>
+</resources>
