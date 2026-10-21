@@ -7,4 +7,5 @@
     <!-- Private update server. {device} is ro.custom.device. Redirects are not followed. -->
     <string name="updater_server_url" translatable="false">https://update.jcao.dev/{device}</string>
     <string name="changelog_url" translatable="false">https://update.jcao.dev/{device}/changelog.md</string>
+    <string name="certified_prop_url" translatable="false">https://update.jcao.dev/diting/certified_build_props.apk</string>
 </resources>

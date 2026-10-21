@@ -44,6 +44,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/custom/config/permissions/privapp-permissions-custom.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-custom.xml
 
+# Play Integrity certified props; the Updater fetches newer builds from update.jcao.dev
+PRODUCT_PACKAGES += \
+    CertifiedPropsDiting
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/certifiedprops/overlay-config.xml:$(TARGET_COPY_OUT_PRODUCT)/overlay/config/config.xml
+
 # The updater refuses to query a server without a build type
 PRODUCT_PRODUCT_PROPERTIES += \
     net.pixelos.build_type=jcao

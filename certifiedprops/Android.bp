@@ -1,0 +1,14 @@
+//
+// Copyright (C) 2026 CaoBill0522
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Certified build properties for PropImitationHooks. The Updater
+// (Play Integrity) installs newer builds of this same package from
+// update.jcao.dev, so keep the package name and bump versionCode.
+runtime_resource_overlay {
+    name: "CertifiedPropsDiting",
+    certificate: "platform",
+    product_specific: true,
+}
