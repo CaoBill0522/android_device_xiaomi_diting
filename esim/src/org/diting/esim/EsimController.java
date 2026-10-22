@@ -11,8 +11,10 @@ import android.content.om.IOverlayManager;
 import android.content.pm.PackageManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.telephony.SubscriptionManager;
 import android.util.Log;
 
 /**
@@ -34,6 +36,7 @@ final class EsimController {
     private static final String SLOT_OVERLAY = "android.overlay.diting.euicc";
 
     private static final long TIMEOUT_SECONDS = 5;
+    private static final long CARD_SETTLE_MILLIS = 5000;
 
     private EsimController() {}
 
@@ -49,17 +52,20 @@ final class EsimController {
         SystemProperties.set(PROP_ESIM, enabled ? "1" : "0");
     }
 
-    /** Marks slot 1 as the embedded eUICC only while eSIM is switched on. */
-    static void syncSlotOverlay(boolean enabled) {
+    /**
+     * Marks slot 1 as the built-in eUICC on boards that have one. It stays on while eSIM is
+     * switched off: telephony reads it once at boot, and the eSIM switch no longer reboots.
+     */
+    static void syncSlotOverlay() {
         if (!hasEuiccSlot()) return;
         IOverlayManager om = IOverlayManager.Stub.asInterface(
                 ServiceManager.getService(Context.OVERLAY_SERVICE));
         try {
             if (om.getOverlayInfo(SLOT_OVERLAY, UserHandle.USER_SYSTEM) != null) {
-                om.setEnabled(SLOT_OVERLAY, enabled, UserHandle.USER_SYSTEM);
+                om.setEnabled(SLOT_OVERLAY, true, UserHandle.USER_SYSTEM);
             }
         } catch (RemoteException | IllegalStateException e) {
-            Log.e(TAG, "Failed to switch " + SLOT_OVERLAY, e);
+            Log.e(TAG, "Failed to enable " + SLOT_OVERLAY, e);
         }
     }
 
@@ -77,6 +83,17 @@ final class EsimController {
             }
         } catch (IllegalArgumentException e) {
             Log.w(TAG, LPA_PACKAGE + " is not installed");
+        }
+    }
+
+    /** Waits for the routed card to come back, then asks telephony to re-read the eUICC. */
+    static void refreshEmbeddedSubscriptions(Context context) {
+        SystemClock.sleep(CARD_SETTLE_MILLIS);
+        SubscriptionManager sm = context.getSystemService(SubscriptionManager.class);
+        try {
+            sm.requestEmbeddedSubscriptionInfoListRefresh();
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Could not refresh embedded subscriptions", e);
         }
     }
 

@@ -6,9 +6,12 @@
 <resources>
     <string name="switch_on_title">开启 eSIM？</string>
     <string name="switch_off_title">关闭 eSIM？</string>
-    <string name="switch_on_message_shared_slot">开启 eSIM 后卡槽二将停用。需要重启手机才能生效。</string>
-    <string name="switch_off_message_shared_slot">关闭 eSIM 后卡槽二恢复使用，eSIM 号码将不可用。需要重启手机才能生效。</string>
+    <string name="switch_on_message_shared_slot">开启 eSIM 后卡槽二将停用，切换需要几秒钟。</string>
+    <string name="switch_off_message_shared_slot">关闭 eSIM 后卡槽二恢复使用，eSIM 号码将不可用。切换需要几秒钟。</string>
     <string name="switch_message">需要重启手机才能生效。</string>
     <string name="restart">重启</string>
     <string name="switch_failed">卡槽切换失败</string>
+    <string name="switch_now">切换</string>
+    <string name="switched_on">eSIM 已开启</string>
+    <string name="switched_off">eSIM 已关闭</string>
 </resources>

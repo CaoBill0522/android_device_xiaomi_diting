@@ -8,6 +8,7 @@ package org.diting.esim;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.widget.Toast;
@@ -40,7 +41,8 @@ public class EsimSwitchActivity extends Activity {
         new AlertDialog.Builder(this)
                 .setTitle(enable ? R.string.switch_on_title : R.string.switch_off_title)
                 .setMessage(message)
-                .setPositiveButton(R.string.restart, (d, w) -> apply(enable))
+                .setPositiveButton(sharedSlot ? R.string.switch_now : R.string.restart,
+                        (d, w) -> apply(enable, sharedSlot))
                 .setNegativeButton(android.R.string.cancel, null)
                 .setOnDismissListener(d -> {
                     if (!isChangingConfigurations()) finish();
@@ -48,16 +50,28 @@ public class EsimSwitchActivity extends Activity {
                 .show();
     }
 
-    private void apply(boolean enable) {
+    private void apply(boolean enable, boolean sharedSlot) {
+        // The dialog finishes this activity before the switch is done
+        Context app = getApplicationContext();
         new Thread(() -> {
-            if (!EsimController.routeSharedSlot(this, enable)) {
-                runOnUiThread(() -> Toast.makeText(this, R.string.switch_failed,
-                        Toast.LENGTH_LONG).show());
+            if (!EsimController.routeSharedSlot(app, enable)) {
+                app.getMainExecutor().execute(() -> Toast.makeText(app,
+                        R.string.switch_failed, Toast.LENGTH_LONG).show());
                 return;
             }
             EsimController.setEnabled(enable);
-            EsimController.syncSlotOverlay(enable);
-            getSystemService(PowerManager.class).reboot(null);
+            if (!sharedSlot) {
+                // Without a built-in eUICC the eSIM feature itself is toggled, which
+                // SystemConfig only reads at boot
+                app.getSystemService(PowerManager.class).reboot(null);
+                return;
+            }
+            // The shared slot was power-cycled while routing; once the card is back,
+            // let telephony pick up the embedded profiles (or drop them) right away.
+            EsimController.refreshEmbeddedSubscriptions(app);
+            app.getMainExecutor().execute(() -> Toast.makeText(app,
+                    enable ? R.string.switched_on : R.string.switched_off,
+                    Toast.LENGTH_SHORT).show());
         }).start();
     }
 }
