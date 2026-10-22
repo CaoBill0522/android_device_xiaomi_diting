@@ -57,6 +57,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Overlay
 PRODUCT_PACKAGES += \
     FrameworksResDiting \
+    LauncherSuwResDiting \
     NavbarNoHintOverlay \
     NavbarNoInsetOverlay \
     NetworkStackResDiting \

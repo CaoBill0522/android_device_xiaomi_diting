@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 CaoBill0522
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- In setup wizard the phone gesture-nav taskbar window ends up at taskbar_stashed_size
+         (48dp), but the back/home/recents buttons were laid out for a 96dp frame and 64dp
+         buttons, so only their lower half showed. Keep the setup layout inside 48dp. -->
+    <dimen name="taskbar_suw_frame">48dp</dimen>
+    <dimen name="taskbar_contextual_button_suw_height">48dp</dimen>
+</resources>
