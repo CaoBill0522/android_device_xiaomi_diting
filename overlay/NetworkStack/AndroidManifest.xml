@@ -5,6 +5,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.networkstack.overlay.diting">
     <overlay android:targetPackage="com.android.networkstack"
+                   android:targetName="NetworkStackConfig"
                    android:isStatic="true"
                    android:priority="700"/>
 </manifest>
